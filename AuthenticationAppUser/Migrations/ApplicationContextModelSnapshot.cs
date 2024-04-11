@@ -70,9 +70,6 @@ namespace AuthenticationAppUser.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("SchoolId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -119,6 +116,9 @@ namespace AuthenticationAppUser.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SchoolId"));
 
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("OrgNr")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -128,6 +128,8 @@ namespace AuthenticationAppUser.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SchoolId");
+
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("Schools");
                 });
@@ -165,14 +167,9 @@ namespace AuthenticationAppUser.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SchoolEntitySchoolId")
-                        .HasColumnType("int");
-
                     b.HasKey("UserId", "AddressId");
 
                     b.HasIndex("AddressId");
-
-                    b.HasIndex("SchoolEntitySchoolId");
 
                     b.ToTable("UserAddresses");
                 });
@@ -319,7 +316,7 @@ namespace AuthenticationAppUser.Migrations
                         .IsRequired();
 
                     b.HasOne("AuthenticationAppUser.Models.SchoolEntity", "School")
-                        .WithMany()
+                        .WithMany("Addresses")
                         .HasForeignKey("SchoolId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -329,6 +326,13 @@ namespace AuthenticationAppUser.Migrations
                     b.Navigation("School");
                 });
 
+            modelBuilder.Entity("AuthenticationAppUser.Models.SchoolEntity", b =>
+                {
+                    b.HasOne("AuthenticationAppUser.Models.AppUser", null)
+                        .WithMany("Schools")
+                        .HasForeignKey("AppUserId");
+                });
+
             modelBuilder.Entity("AuthenticationAppUser.models.UserAddressEntity", b =>
                 {
                     b.HasOne("AuthenticationAppUser.models.AddressEntity", "Address")
@@ -336,10 +340,6 @@ namespace AuthenticationAppUser.Migrations
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("AuthenticationAppUser.Models.SchoolEntity", null)
-                        .WithMany("Addresses")
-                        .HasForeignKey("SchoolEntitySchoolId");
 
                     b.HasOne("AuthenticationAppUser.Models.AppUser", "User")
                         .WithMany("Addresses")
@@ -406,6 +406,8 @@ namespace AuthenticationAppUser.Migrations
             modelBuilder.Entity("AuthenticationAppUser.Models.AppUser", b =>
                 {
                     b.Navigation("Addresses");
+
+                    b.Navigation("Schools");
                 });
 
             modelBuilder.Entity("AuthenticationAppUser.Models.SchoolEntity", b =>

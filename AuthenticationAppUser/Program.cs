@@ -19,6 +19,7 @@ builder.Services.AddIdentityApiEndpoints<AppUser>()
 
 
 builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<SchoolRepository>();
 
 
 builder.Services.AddAuthentication();

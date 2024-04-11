@@ -11,6 +11,7 @@ namespace AuthenticationAppUser
         {
             CreateMap<AppUser, RegisterUserDTO>().ReverseMap();
             CreateMap<AddressEntity, RegisterUserDTO>().ReverseMap();
+            CreateMap<AddressEntity, RegistrationSchoolDTO>().ReverseMap();
         }
     }
 }

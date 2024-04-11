@@ -11,7 +11,7 @@ namespace AuthenticationAppUser.Models
         public string SchoolName { get; set;}
         public string OrgNr { get; set; }
 
-        public ICollection<UserAddressEntity> Addresses { get; set; } = new HashSet<UserAddressEntity>();
+        public ICollection<SchoolAddressEntity> Addresses { get; set; } = new HashSet<SchoolAddressEntity>();
 
     }
 }
