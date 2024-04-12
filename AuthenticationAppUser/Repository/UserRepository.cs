@@ -59,11 +59,6 @@ namespace AuthenticationAppUser.Repository
                     //lägg till för roles hantering här
                     if (!await _roleManager.Roles.AnyAsync())
                     {
-                        await _roleManager.CreateAsync(new IdentityRole("student"));
-                        await _roleManager.CreateAsync(new IdentityRole("utbildningsanordnare"));
-                        await _roleManager.CreateAsync(new IdentityRole("teacher"));
-                        await _roleManager.CreateAsync(new IdentityRole("company"));
-                        await _roleManager.CreateAsync(new IdentityRole("school"));
                         await _roleManager.CreateAsync(new IdentityRole("user"));
                     }
 

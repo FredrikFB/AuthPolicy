@@ -2,7 +2,6 @@
 using AuthenticationAppUser.Models.DTO;
 using AuthenticationAppUser.Repository;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Security.Claims;
@@ -47,6 +46,13 @@ namespace AuthenticationAppUser.Controllers
                 _response.ErrorMessages = [ex.ToString()];
             }
             return _response;
+        }
+
+        [HttpPost]
+        [Authorize(Policy = "RequireAdminRole")]
+        public async Task<ActionResult<string>> AddRoleToUser()
+        {
+            return "works";
         }
     }
 }

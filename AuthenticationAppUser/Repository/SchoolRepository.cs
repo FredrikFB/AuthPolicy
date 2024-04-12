@@ -45,6 +45,7 @@ namespace AuthenticationAppUser.Repository
                 AddressEntity address = _mapper.Map<AddressEntity>(registerSchoolDTO);
 
                 var result = _context.Schools.Add(school);
+                await _context.SaveChangesAsync(); // Spara alla ändringar i databasen
 
                 if (result.Entity != null)
                 {

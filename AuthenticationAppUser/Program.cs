@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using AuthenticationAppUser.Models;
 using AuthenticationAppUser.Repository;
 using AuthenticationAppUser;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,20 @@ builder.Services.AddScoped<SchoolRepository>();
 
 
 builder.Services.AddAuthentication();
+builder.Services.AddAuthorization(AuthorizationPolicyConfig.ConfigurePolicies);
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.AddPolicy("RequireAdminRole", policy =>
+//    {
+//        policy.RequireAssertion(context =>
+//        {
+//            //var schoolId = context.User.FindFirstValue("");
+//            context.User.IsInRole("admin8");
+
+//            return true;
+//        });
+//    });
+//});
 builder.Services.AddAuthorizationBuilder();
 builder.Services.AddAutoMapper(typeof(MappingConfig));
 

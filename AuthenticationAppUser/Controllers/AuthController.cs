@@ -25,7 +25,7 @@ namespace AuthenticationAppUser.Controllers
         }
 
 
-        [HttpPost("registerschool")]
+        [HttpPost("register")]
         public async Task<ActionResult<ApiResponse>> RegisterUser([FromBody] RegisterUserDTO RegisterDTO)
         {
             try
