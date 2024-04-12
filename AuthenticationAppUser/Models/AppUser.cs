@@ -1,4 +1,4 @@
-﻿using AuthenticationAppUser.models;
+﻿using AuthenticationAppUser.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace AuthenticationAppUser.Models
@@ -9,9 +9,9 @@ namespace AuthenticationAppUser.Models
         public string? LastName { get; set; }
 
 
-        public ICollection<SchoolEntity> Schools { get; set; } = new HashSet<SchoolEntity>();
+        public ICollection<UserSchoolEntity> Schools { get; set; } = new HashSet<UserSchoolEntity>();
         public ICollection<UserAddressEntity> Addresses { get; set; } = new HashSet<UserAddressEntity>();
 
-        
+       
     }
 }

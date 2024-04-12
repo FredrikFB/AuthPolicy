@@ -1,7 +1,7 @@
 ﻿using AuthenticationAppUser.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace AuthenticationAppUser.models
+namespace AuthenticationAppUser.Models
 {
     [PrimaryKey(nameof(UserId),nameof(AddressId))]
     public class UserAddressEntity

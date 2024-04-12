@@ -1,4 +1,4 @@
-﻿using AuthenticationAppUser.models;
+﻿using AuthenticationAppUser.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace AuthenticationAppUser.Models

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AuthenticationAppUser.models
+namespace AuthenticationAppUser.Models
 {
     public class AddressEntity
     {

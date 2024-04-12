@@ -1,5 +1,4 @@
-﻿using AuthenticationAppUser.models;
-using AuthenticationAppUser.Models;
+﻿using AuthenticationAppUser.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +14,7 @@ namespace AuthenticationAppUser.Context
         public DbSet<UserAddressEntity> UserAddresses { get; set; }
         public DbSet<SchoolAddressEntity> SchoolAddresses { get; set; }
         public DbSet<SchoolEntity> Schools { get; set; }
+        public DbSet<UserSchoolEntity> UserSchools { get; set; }
 
         
     

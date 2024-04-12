@@ -1,5 +1,4 @@
-﻿using AuthenticationAppUser.models;
-using AuthenticationAppUser.Models;
+﻿using AuthenticationAppUser.Models;
 using AuthenticationAppUser.Models.DTO;
 using AutoMapper;
 
