@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AuthenticationAppUser.Context;
+using AuthenticationAppUser.Models.AuthRequirement;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace AuthenticationAppUser
@@ -7,29 +10,25 @@ namespace AuthenticationAppUser
     {
         public static void ConfigurePolicies(AuthorizationOptions options)
         {
+
             options.AddPolicy("RequireAdminRole", policy =>
             {
-                policy.RequireAssertion(context =>
-                {
-                    var roleClaims = context.User.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
-                    var roles = roleClaims.Select(c => c.Value).ToList();
-
-                    //var schoolId = context.User.FindFirstValue("");
-
-                    //return context.User.IsInRole($"admin{schoolId}");
-                    return context.User.IsInRole("admin1");
-                });
+                policy.RequireAuthenticatedUser(); // Kräver att användaren är autentiserad
+                policy.Requirements.Add(new RequireRole("admin")); // Kräver rollen "admin"
+      
             });
 
             options.AddPolicy("RequireTeacherRole", policy =>
             {
-                policy.RequireAssertion(context =>
-                {
-                    var schoolId = context.User.FindFirstValue("SchoolId");
-
-                    return context.User.IsInRole("teacher" + schoolId);
-                });
+                policy.Requirements.Add(new RequireRole("teacher"));
             });
+
+            options.AddPolicy("RequireStudentRole", policy =>
+            {
+                policy.Requirements.Add(new RequireRole("student"));
+            });
+
+
         }
     }
 }

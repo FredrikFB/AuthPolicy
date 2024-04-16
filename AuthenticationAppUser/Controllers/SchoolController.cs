@@ -1,8 +1,12 @@
-﻿using AuthenticationAppUser.Models;
+﻿using AuthenticationAppUser.Context;
+using AuthenticationAppUser.Models;
 using AuthenticationAppUser.Models.DTO;
 using AuthenticationAppUser.Repository;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.Net;
 using System.Security.Claims;
 
@@ -14,11 +18,15 @@ namespace AuthenticationAppUser.Controllers
     {
         private readonly SchoolRepository _schoolRepo;
         protected ApiResponse _response;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly ApplicationContext _context;
 
-        public SchoolController(SchoolRepository schoolRepo)
+        public SchoolController(SchoolRepository schoolRepo, ApplicationContext context, UserManager<AppUser> userManager)
         {
             _schoolRepo = schoolRepo;
+            _context = context;
             _response = new();
+            _userManager = userManager;
         }
 
         [HttpPost("RegisterSchool")]
@@ -48,12 +56,17 @@ namespace AuthenticationAppUser.Controllers
             return _response;
         }
 
-        [HttpPost]
+        [HttpPost("AddUserToRole")]
         [Authorize(Policy = "RequireAdminRole")]
-        public async Task<ActionResult<string>> AddRoleToUser()
+        public async Task<ActionResult<string>> AddRoleToUser(int id)
         {
+            //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //var user = await _userManager.GetUserAsync(User);
+            //var schools= user.Schools.ToList();
+
             return "works";
         }
+
     }
 }
 

@@ -4,6 +4,7 @@ using AuthenticationAppUser.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AuthenticationAppUser.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240415115016_RoleAddedToUserSchoolEntity")]
+    partial class RoleAddedToUserSchoolEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +47,7 @@ namespace AuthenticationAppUser.Migrations
 
                     b.HasKey("AddressId");
 
-                    b.ToTable("Addresses", (string)null);
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("AuthenticationAppUser.Models.AppUser", b =>
@@ -130,7 +133,7 @@ namespace AuthenticationAppUser.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.ToTable("SchoolAddresses", (string)null);
+                    b.ToTable("SchoolAddresses");
                 });
 
             modelBuilder.Entity("AuthenticationAppUser.Models.SchoolEntity", b =>
@@ -151,7 +154,7 @@ namespace AuthenticationAppUser.Migrations
 
                     b.HasKey("SchoolId");
 
-                    b.ToTable("Schools", (string)null);
+                    b.ToTable("Schools");
                 });
 
             modelBuilder.Entity("AuthenticationAppUser.Models.UserAddressEntity", b =>
@@ -166,7 +169,7 @@ namespace AuthenticationAppUser.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.ToTable("UserAddresses", (string)null);
+                    b.ToTable("UserAddresses");
                 });
 
             modelBuilder.Entity("AuthenticationAppUser.Models.UserSchoolEntity", b =>
@@ -185,7 +188,7 @@ namespace AuthenticationAppUser.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserSchools", (string)null);
+                    b.ToTable("UserSchools");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

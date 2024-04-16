@@ -11,6 +11,7 @@ namespace AuthenticationAppUser.Models
 
         public string UserId { get; set; }
         public AppUser User { get; set; } = null!;
+        public string Role { get; set; } = null!;
 
     }
 }

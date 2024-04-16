@@ -49,18 +49,22 @@ namespace AuthenticationAppUser.Repository
 
                 if (result.Entity != null)
                 {
-                    var user = await _user.FindByIdAsync(userId);
-                    if (user != null)
-                    {
-                        // Kontrollera om rollerna redan finns innan du skapar dem
-                        if (!await _role.Roles.AnyAsync(x => x.Name == $"admin{school.SchoolId}"))
-                        {
-                            await _role.CreateAsync(new IdentityRole($"admin{school.SchoolId}"));
-                            await _role.CreateAsync(new IdentityRole($"teacher{school.SchoolId}"));
-                            await _role.CreateAsync(new IdentityRole($"student{school.SchoolId}"));
-                        }
-                        await _user.AddToRoleAsync(user, $"admin{school.SchoolId}");
-                    }
+                    //var user = await _user.FindByIdAsync(userId);
+                    //if (user != null)
+                    //{
+                    //    //// Kontrollera om rollerna redan finns innan du skapar dem
+                    //    //if (!await _role.Roles.AnyAsync(x => x.Name == $"admin{school.SchoolId}"))
+                    //    //{
+                    //    //    await _role.CreateAsync(new IdentityRole($"admin{school.SchoolId}"));
+                    //    //    await _role.CreateAsync(new IdentityRole($"teacher{school.SchoolId}"));
+                    //    //    await _role.CreateAsync(new IdentityRole($"student{school.SchoolId}"));
+                    //    //}
+                    //    await _role.CreateAsync(new IdentityRole("admin"));
+                    //    await _user.AddToRoleAsync(user, $"admin");
+                    //}
+
+                    UserSchoolEntity userSchool = new UserSchoolEntity { Role = "admin", SchoolId = school.SchoolId, UserId = userId };
+                    _context.Add(userSchool);
 
                     SchoolAddressEntity schoolAddress;
                     var adressExists = await _context.Addresses.FirstOrDefaultAsync(x => x.StreetName == address.StreetName && x.Postalcode == address.Postalcode && x.City == address.City);

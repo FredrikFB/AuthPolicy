@@ -6,6 +6,8 @@ using AuthenticationAppUser.Models;
 using AuthenticationAppUser.Repository;
 using AuthenticationAppUser;
 using System.Security.Claims;
+using AuthenticationAppUser.Models.AuthRequirement;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,10 +23,20 @@ builder.Services.AddIdentityApiEndpoints<AppUser>()
 
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<SchoolRepository>();
-
+builder.Services.AddScoped<IAuthorizationHandler, RequireRoleHandler>();
 
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization(AuthorizationPolicyConfig.ConfigurePolicies);
+//builder.Services.AddAuthorization(options =>
+//{
+//    // Hämta ApplicationContext från DI-container när auktoriseringspolicys konfigureras
+//    var serviceProvider = builder.Services.BuildServiceProvider();
+//    var dbContext = serviceProvider.GetRequiredService<ApplicationContext>();
+
+//    // Konfigurera auktoriseringspolicyer med ApplicationContext
+//    AuthorizationPolicyConfig.ConfigurePolicies(options, dbContext);
+//});
+
 //builder.Services.AddAuthorization(options =>
 //{
 //    options.AddPolicy("RequireAdminRole", policy =>
